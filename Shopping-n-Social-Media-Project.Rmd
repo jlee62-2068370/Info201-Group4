@@ -1,6 +1,6 @@
 ---
-title: "Shopping-n-Social-Media-Project"
-author: "Kyra Diaz"
+title: "Shopping n' Social Media Project"
+author: "Kyra Diaz, Zareen Tasnim, Dylan Johnson, & Jordan Lee"
 date: "2023-02-22"
 output: html_document
 ---
@@ -9,8 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Overview
-Once we learn how to make an interactive webpage (like the examples), we can make these pages:
-* Homepage that explains our topic and project
-* Supplementing interactive pages showcasing data (2-3?)
-* Main takeaways from dataset
+## Overview (Delete Later)
+Once we learn how to make an interactive webpage (like the examples), we can make these pages: \
+- Homepage that explains our topic and project (mostly based on project proposal) \
+- Supplementing interactive pages showcasing data (2-3?) \
+- Main takeaways from dataset \
+\
+**Don't forget to pull, edit, then push!**
