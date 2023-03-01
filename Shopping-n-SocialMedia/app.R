@@ -9,6 +9,15 @@
 library(shiny)
 library(tidyverse)
 
+data <- read_delim("WhatsgoodlyData-6.csv")
+
+Test
+enkjaslnc
+dascnjkadsnc
+adscnjkasdc
+dsacnsajkca
+
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
 
