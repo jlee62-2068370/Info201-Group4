@@ -10,6 +10,8 @@ library(tidyverse)
 
 data <- read_delim("WhatsgoodlyData-6.csv")
 
+## SHINY APP
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   
@@ -22,3 +24,5 @@ server <- function(input, output) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
+## DATA CLEANING
