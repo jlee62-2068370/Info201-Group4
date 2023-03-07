@@ -114,7 +114,7 @@ ui <- fluidPage(
 )# end of fluidPage section
 
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   
   ## INTRODUCTION
   
@@ -125,7 +125,13 @@ server <- function(input, output) {
   })
   
   # Find out what was selected on the "Select All" radio button
-  # CODE GOES HERE
+  # CODE GOES HERE: DOESN'T WORK!!!!!
+  observe({
+    updateCheckboxGroupInput(
+      session, "uniqueDemographics", choices = sort(unique(data$`Segment Description`)),
+      selected = if(input$All == "On") sort(unique(data$`Segment Description`))
+    )
+  })
   
   # Proper way to implement changing demographics without errors.
   sample <- reactive({
@@ -151,7 +157,8 @@ server <- function(input, output) {
       group_by(Answer) %>% 
       # Removed this to have the plot display all demographics. Currently
       # the "select demographics" will not work as this is commented out.
-      # filter(`Segment Description` %in% input$specification) %>% 
+      filter(`Segment Description` %in% input$specification) %>% 
+      
       summarise(total_votes = sum(unique(Count))) %>% 
       arrange(rank(desc(total_votes)))
     
