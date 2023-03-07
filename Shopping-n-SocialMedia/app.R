@@ -11,8 +11,6 @@ library(plotly)
 library(ggplot2)
 library(colourpicker)
 
-# Let's hope that this works...
-
 ## LOADING DATA
 data <- read_delim("WhatsgoodlyData-6.csv")
 
@@ -32,11 +30,25 @@ shopping_gender <- data %>%
 ## SHINY APP
 
 ui <- fluidPage(
+  titlePanel("Social Media Influences on Shopping Analysis"),
   tabsetPanel(
     
     ## INTRODUCTION (TAB 1)
-    tabPanel("Home"
-      
+    tabPanel("Introduction",
+             h3(strong("Creators:"),"Jordan Lee, Kyra Gaile Diaz, Zareen Tasnim, Dylan Johnson"),
+             h3(strong("Project Overview")),
+             p("This report provides a broad overview of how online advertising on social media affects consumers of varying gender, age, status, and more."),
+             h3(strong("Audience")),
+             p("Our target audience are mainly young people (particularly from Gen-Z and Millennial generations) who use social media platforms daily. 
+             The focus on these two generations is due to the fact that the dataset excludes other generations, so we cannot report trends for them (e.g. Baby Boomers, Gen x, etc.). 
+             These age groups also seem to be more relevant in terms of social media influence on shopping behavior due to their increased exposure to
+             apps such as Instagram, Facebook, Twitter, and Snapchat. This may be valuable to them by creating more awareness on how these platforms affect the way they spend."),
+             h3(strong("Data Set")),
+             p("WhatsGoodly"),
+             h3(strong("Questions")),
+             p("Which social media platform has the most influence on shopping?"),
+             p("Is there a particular demographic that values or uses certain types of social influence on their shopping habits more than others?"),
+             p("Which gender is more susceptible to social media influencing?")
     ),
     
     ## QUESTION 1 (TAB 2)
