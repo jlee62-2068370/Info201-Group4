@@ -9,6 +9,8 @@ library(shiny)
 library(tidyverse)
 library(plotly)
 
+# Let's hope that this works...
+
 ## LOADING DATA
 data <- read_delim("WhatsgoodlyData-6.csv")
 
