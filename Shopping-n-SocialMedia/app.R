@@ -8,6 +8,8 @@
 library(shiny)
 library(tidyverse)
 library(plotly)
+library(ggplot2)
+library(colourpicker)
 
 # Let's hope that this works...
 
@@ -24,6 +26,9 @@ data$`Number of Voters` <- floor(data$Count/data$Percentage)
 data$`Number of Voters` <- data$`Number of Voters` %>% 
   replace(is.na(.), 0)
 
+shopping_gender <- data %>% 
+  filter(`Segment Type` == "Gender")
+  
 ## SHINY APP
 
 ui <- fluidPage(
@@ -79,8 +84,26 @@ ui <- fluidPage(
     ),
     
     ## QUESTION 3 (TAB 4)
-    tabPanel("Gender and Social Media Influence"
-      
+    tabPanel("Gender and Social Media Influence",
+             titlePanel("Frequency of Shoppers According to Social Media"),
+             p("Here you can see the frequency of users who spend by their
+               gender identity. You can also choose the color of the graph!"),
+             
+             mainPanel(plotOutput("barplot"),
+                       textOutput("sentence1")
+             ),
+             
+             sidebarPanel(
+               fluidRow(
+                 column(6,
+                        radioButtons("color", "Choose color:",
+                                     choices = c("purple3", "pink2", "lightgreen",
+                                                          "skyblue"))),
+                column(6,
+                        radioButtons("gender", "Choose gender:",
+                                     choices = c(unique(shopping_gender$`Segment Description`), 
+                                     "Both")))
+               )
     ),
     
     ## CONCLUSION (TAB 5)
@@ -89,7 +112,8 @@ ui <- fluidPage(
     )
     
   ) # end of tabsetPanel section
-) # end of fluidPage section
+)
+)# end of fluidPage section
 
 
 server <- function(input, output) {
@@ -134,6 +158,31 @@ server <- function(input, output) {
   ## QUESTION 2
   
   ## QUESTION 3
+  output$barplot <- renderPlot({
+    shopping_gender %>%
+      filter(input$gender == "Both" | `Segment Description` == input$gender) %>%
+      ggplot() +
+      geom_bar(mapping = aes(x = Answer, y = Count), 
+               stat = 'identity',
+               fill = input$color) +
+      labs(x = "Social Media", y = "Number of Shoppers")
+  })
+  
+  output$sentence1 <- renderText({
+    if(input$gender == "Both"){
+      paste("Overall, most people either didn't shop from social media
+            or used Instagram to shop!")
+    }
+    
+    else if(input$gender == "Female voters"){
+      paste("Instagram was the most influential for women!")
+    }
+    
+    else if(input$gender == "Male voters"){
+      paste("There was no social media influence on shopping
+            for most men.")
+    }
+  })
   
   ## CONCLUSION
 }
