@@ -53,12 +53,10 @@ ui <- fluidPage(
               # Couldn't get a second button with an option to select all
               # data working, nor a way to disable all the other buttons.
               
-              # column(6, radioButtons("All", "Select All", choices = c("Off", "On"))),
-              # column(6, 
-              
-              uiOutput("uniqueDemographics")
-              
-              # )
+              column(6, radioButtons("All", "Select All", choices = c("Off", "On"))),
+              column(6, 
+                uiOutput("uniqueDemographics")
+              )
             )
           )
         ),
@@ -126,6 +124,9 @@ server <- function(input, output) {
                        choices = sort(unique(data$`Segment Description`)))
   })
   
+  # Find out what was selected on the "Select All" radio button
+  # CODE GOES HERE
+  
   # Proper way to implement changing demographics without errors.
   sample <- reactive({
     # Using s1 allows for us to get around an Error if no demographic
@@ -138,6 +139,11 @@ server <- function(input, output) {
   # a certain social media platform's ads influenced their purchases.
   # Want to plot the complete, unedited graph when nothing is selected,
   # then only data found in selected demographics if one or more are selected.
+  
+  
+  # Do an If/Else function to find out if a "total" button is selected, and if so
+  # display just the code WTIHOUT the filter. If it IS NOT selected, then use this
+  # code WITH the filter.
   
   output$barPlot = renderPlotly({
     manipulated_data <- data %>% 
