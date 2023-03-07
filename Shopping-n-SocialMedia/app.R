@@ -7,6 +7,7 @@
 
 library(shiny)
 library(tidyverse)
+library(plotly)
 
 ## LOADING DATA
 data <- read_delim("WhatsgoodlyData-6.csv")
@@ -16,8 +17,10 @@ data <- read_delim("WhatsgoodlyData-6.csv")
 
 # 1. Check to see if there are NA's in the data and exclude those.
 
-# 2. Do any other filtering if needed!
-
+# 2. Created a new column that displays the size of the demographics.
+data$`Number of Voters` <- floor(data$Count/data$Percentage)
+data$`Number of Voters` <- data$`Number of Voters` %>% 
+  replace(is.na(.), 0)
 
 ## SHINY APP
 
@@ -30,22 +33,47 @@ ui <- fluidPage(
     ),
     
     ## QUESTION 1 (TAB 2)
-    tabPanel("Most Influential Social Media Platform"
-      
+    tabPanel(
+      "Most Influential Social Media Platform",
+      sidebarLayout(
+        sidebarPanel(
+          wellPanel(
+            p("You can analyze how each demograhic viewed social media advertising
+            as having affected what they purchase. Each bar represents a specific
+            social media platform (or NONE) and the y-axis represents the total
+            number of users."),
+            fluidRow(
+              # Couldn't get a second button with an option to select all
+              # data working, nor a way to disable all the other buttons.
+              
+              # column(6, radioButtons("All", "Select All", choices = c("Off", "On"))),
+              # column(6, 
+              
+              uiOutput("uniqueDemographics")
+              
+              # )
+            )
+          )
+        ),
+        mainPanel(
+          wellPanel(
+            plotlyOutput("barPlot")
+          )
+        )
+      )
     ),
     
     ## QUESTION 2 (TAB 3)
     tabPanel("General Trends",
-             titlePanel("How does social media influence over shopping behavior
-                        differ across various demographics?"),
-             p("This research question aims to find any significant trends across
-               three different demographical categories:",
-                strong("Race, Socioeconomic Status, and Marital Status."),
-               "Below is a bar graph comparing different segments of people
-               and the frequency at which they shop on social media platforms.
-               You may use the widgets to compare specific groups."
-               )
-      
+      titlePanel("How does social media influence over shopping behavior
+                  differ across various demographics?"),
+      p("This research question aims to find any significant trends across
+         three different demographical categories:",
+      strong("Race, Socioeconomic Status, and Marital Status."),
+         "Below is a bar graph comparing different segments of people
+         and the frequency at which they shop on social media platforms.
+         You may use the widgets to compare specific groups."
+      )
     ),
     
     ## QUESTION 3 (TAB 4)
@@ -67,7 +95,40 @@ server <- function(input, output) {
   ## INTRODUCTION
   
   ## QUESTION 1
+  output$uniqueDemographics <- renderUI({
+    checkboxGroupInput("specification", "Select demographics",
+                       choices = sort(unique(data$`Segment Description`)))
+  })
   
+  # Proper way to implement changing demographics without errors.
+  sample <- reactive({
+    # Using s1 allows for us to get around an Error if no demographic
+    # is selected.
+    s1 <- data %>% 
+      filter(`Segment Description` %in% input$specification)
+  })
+  
+  # Bar plot filtered by demographic categories for number of pollers who view
+  # a certain social media platform's ads influenced their purchases.
+  # Want to plot the complete, unedited graph when nothing is selected,
+  # then only data found in selected demographics if one or more are selected.
+  
+  output$barPlot = renderPlotly({
+    manipulated_data <- data %>% 
+      select(Question, Answer, Count, `Segment Description`, `Number of Voters`) %>% 
+      group_by(Answer) %>% 
+      # Removed this to have the plot display all demographics. Currently
+      # the "select demographics" will not work as this is commented out.
+      # filter(`Segment Description` %in% input$specification) %>% 
+      summarise(total_votes = sum(unique(Count))) %>% 
+      arrange(rank(desc(total_votes)))
+    
+    plot_ly(data = sample(),
+            x = manipulated_data$Answer,
+            y = manipulated_data$total_votes,
+            marker = list(size = 10),
+            type = "bar")
+  })
   ## QUESTION 2
   
   ## QUESTION 3
