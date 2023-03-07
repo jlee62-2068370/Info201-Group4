@@ -24,9 +24,34 @@ data$`Number of Voters` <- floor(data$Count/data$Percentage)
 data$`Number of Voters` <- data$`Number of Voters` %>% 
   replace(is.na(.), 0)
 
+## QUESTION 2 - AVERAGE GENDER DATA CLEANING 
+
+# Gender Subset
 shopping_gender <- data %>% 
   filter(`Segment Type` == "Gender")
+
+# Calculate average amount of people who shopped from social media apps
+social <- data %>% 
+  filter(`Segment Type` == "Gender") %>% 
+  group_by(`Segment Description`) %>%
+  filter(!Answer == "None") %>% 
+  summarize(avg = mean(Count))
+
+# Calculate average amount of people who DIDN'T shop from social media apps
+none <- data %>% 
+  filter(`Segment Type` == "Gender") %>% 
+  group_by(`Segment Description`) %>% 
+  filter(Answer == "None") %>% 
+  summarize(avg = mean(Count))
+
+# Create a new column that ranks whether the average is "social" or "none"
+social <- cbind(social, status = c("social", "social"))
+none <- cbind(none, status = c("none", "none"))
+
+# Create new dataframe that shows averages
+new_gender <- rbind(social, none)
   
+
 ## SHINY APP
 
 ui <- fluidPage(
@@ -94,26 +119,45 @@ ui <- fluidPage(
     ),
     
     ## QUESTION 3 (TAB 4)
-    tabPanel("Gender and Social Media Influence",
-             titlePanel("Frequency of Shoppers According to Social Media"),
-             p("Here you can see the frequency of users who spend by their
-               gender identity. You can also choose the color of the graph!"),
+    tabPanel("Gender and Social Media Shopping",
              
-             mainPanel(plotOutput("barplot"),
-                       textOutput("sentence1")
+             titlePanel("Gender and Social Media Shopping"),
+             
+             h3("Research Question"),
+             p("Here we aim to answer the question,", 
+               strong("which gender is more susceptible to 
+                  social media influencing on shopping behavior?")),
+             
+             mainPanel(
+               h3("Individual Trends of Gender and Social Media Shopping"),
+               plotOutput("barplot"), # interactive plot to see general trends
+               textOutput("sentence1"), # short summary statements of key features
+               
+               h3("Who's More Suseceptible?"),
+               plotOutput("average"), # summary plot that answers research question
+               p("On average, both genders seem to be equally influenced
+                      by social media apps--specifically Instagram across both
+                      groups. However, it seems that a higher proportion of men
+                      on average do not shop on social media apps. This observation
+                      may be due to a higher sample size of male responses (n = 1562)
+                      than female responses (n = 1114). Thus, we cannot conclusively
+                      determine if women or men are more susceptible to social media
+                      influence on shopping.")
              ),
              
              sidebarPanel(
                fluidRow(
+                 p("This plot shows the different frequencies at which people 
+                       shopped on social media apps according to gender. You can 
+                       manipulate which group (male/female) you're looking at, 
+                       and can also compare individual frequencies with the 'Both'
+                       option."),
                  column(6,
-                        radioButtons("color", "Choose color:",
-                                     choices = c("purple3", "pink2", "lightgreen",
-                                                          "skyblue"))),
-                column(6,
                         radioButtons("gender", "Choose gender:",
                                      choices = c(unique(shopping_gender$`Segment Description`), 
-                                     "Both")))
+                                                 "Both"))),
                )
+             )
     ),
     
     ## CONCLUSION (TAB 5)
@@ -122,7 +166,7 @@ ui <- fluidPage(
     )
     
   ) # end of tabsetPanel section
-)
+
 )# end of fluidPage section
 
 
@@ -184,30 +228,53 @@ server <- function(input, output, session) {
   
   ## QUESTION 3
   output$barplot <- renderPlot({
-    shopping_gender %>%
-      filter(input$gender == "Both" | `Segment Description` == input$gender) %>%
-      ggplot() +
-      geom_bar(mapping = aes(x = Answer, y = Count), 
-               stat = 'identity',
-               fill = input$color) +
-      labs(x = "Social Media", y = "Number of Shoppers")
+    if(input$gender == "Both"){
+      data %>% 
+        filter(`Segment Type` == "Gender") %>% 
+        group_by(`Segment Description`) %>% 
+        ggplot(., mapping = aes(x = Answer, y = Count, 
+                                fill = factor(shopping_gender$`Segment Description`))) +
+        geom_bar(stat = 'identity', position = "dodge2") +
+        labs(x = "Social Media", y = "Number of Shoppers", fill = "Gender")
+    }
+    else {
+      data %>% 
+        filter(`Segment Type` == "Gender") %>%
+        filter(`Segment Description` == input$gender) %>%
+        ggplot() +
+        geom_bar(mapping = aes(x = Answer, y = Count), 
+                 stat = 'identity',
+                 fill = "orangered") +
+        labs(x = "Social Media", y = "Number of Shoppers")
+    }
   })
   
-  output$sentence1 <- renderText({
+  # A reactive sentence that quickly summarizes the trends according to gender
+  output$sentence1 <- renderText(
     if(input$gender == "Both"){
-      paste("Overall, most people either didn't shop from social media
-            or used Instagram to shop!")
+      paste("While social media influence on shopping differed across
+            different platforms, it seems that both Snapchat and Twitter
+            had the least influence on both genders.")
     }
     
     else if(input$gender == "Female voters"){
-      paste("Instagram was the most influential for women!")
+      paste("Instagram seemed to be the most influential social media app
+            for female shoppers.")
     }
     
     else if(input$gender == "Male voters"){
-      paste("There was no social media influence on shopping
-            for most men.")
+      paste("While most men surveyed didn't shop from social media apps,
+            Instagram seemed to be the most influential social media app.")
     }
-  })
+  )
+  
+  # Average table that answers research question
+  output$average <- renderPlot(
+    ggplot(new_gender, mapping = aes(x = `Segment Description`, y = avg, 
+                                     fill = factor(status))) +
+      geom_bar(stat = 'identity', position = "dodge2") +
+      labs(x = "Gender", y = "Average Influence", fill = "Social Media vs None")
+  )
   
   ## CONCLUSION
 }
