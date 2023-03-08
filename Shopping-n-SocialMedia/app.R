@@ -16,7 +16,7 @@ data <- read_delim("WhatsgoodlyData-6.csv")
 
 
 ## DATA CLEANING
-
+3
 # 1. Created a new column that displays the size of the demographics.
 data$`Number of Voters` <- floor(data$Count/data$Percentage)
 data$`Number of Voters` <- data$`Number of Voters` %>% 
@@ -77,9 +77,14 @@ ui <- fluidPage(
              These age groups also seem to be more relevant in terms of social media influence on shopping behavior due to their increased exposure to
              apps such as Instagram, Facebook, Twitter, and Snapchat. This may be valuable to them by creating more awareness on how these platforms affect the way they spend."),
              h3(strong("Data Set")),
-             p("The dataset we’re working with is the “Social Influence on Shopping” dataset by Adam Halper on Kaggle. The dataset specifically surveyed both 
+             p("The dataset we’re working with is ",
+               tags$a(href="https://www.kaggle.com/datasets/thedevastator/uncovering-millennials-shopping-habits-and-socia",
+                      "'Social Influence on Shopping'"),
+               "by Adam Halper on Kaggle. The dataset specifically surveyed both 
                Millennials and Gen-Z and asked what social media app seemed to influence their shopping habits the most. The dataset also provides information 
-               on individual demographics, such as gender, educational status, university attending, etc., allowing us to look into the trends of different subgroups."),
+               on individual demographics, such as gender, educational status, university attending, etc., allowing us to look into the trends of different subgroups.
+               Using 50,770 self-reported responses from users of Whatsgoodly, this app hopes to find trends between which social media platforms more effectively
+               advertise to younger generations and which ones fail to effectively entice their users."),
              h3(strong("Questions")),
              h5("Which social media platform has the most influence on shopping?"),
              h5("Is there a particular demographic that values or uses certain types of social influence on their shopping habits more than others?"),
