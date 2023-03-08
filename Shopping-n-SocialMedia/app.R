@@ -127,15 +127,36 @@ ui <- fluidPage(
     
     ## QUESTION 2 (TAB 3)
     tabPanel("General Trends",
-      titlePanel("How does social media influence over shopping behavior
-                  differ across various demographics?"),
-      p("This research question aims to find any significant trends across
-         three different demographical categories:",
-      strong("Race, Socioeconomic Status, and Marital Status."),
-         "Below is a bar graph comparing different segments of people
-         and the frequency at which they shop on social media platforms.
-         You may use the widgets to compare specific groups."
-      )
+       sidebarLayout(
+         mainPanel(
+           plotOutput("compare")
+         ),
+         sidebarPanel(
+           fluidRow(
+             selectInput("Race1", "Race Choice 1", 
+                         c("closely identify as? Asian",
+                           "closely identify as? Black",
+                           "closely identify as? White",
+                           "closely identify as? Native American",
+                           "closely identify as? Other",
+                           "closely identify as? Hispanic")),
+             selectInput("Race2", "Race Choice 2", 
+                         c("None", "closely identify as? Asian",
+                           "closely identify as? Black",
+                           "closely identify as? White",
+                           "closely identify as? Native American",
+                           "closely identify as? Other",
+                           "closely identify as? Hispanic"))
+           ),
+           fluidRow(
+             colourInput("color1", "Color of Race Choice 1", 
+                         value = "#7FFFD4", palette = "limited"),
+             colourInput("color2", "Color of Race Choice 2", 
+                         value = "#E066FF", palette = "limited"),
+             textOutput("plotText")
+           )
+         )
+       )
     ),
     
     ## QUESTION 3 (TAB 4)
@@ -285,7 +306,21 @@ server <- function(input, output, session) {
             type = "bar")
   })
   ## QUESTION 2
-  
+  output$compare <- renderPlot({
+    plot_data <- data %>%
+      select(`Segment Description`, Answer, Count ) %>%
+      filter(`Segment Description` %in% c(input$Race1, 
+                                          input$Race2)) %>%
+      group_by(`Segment Description`)
+    
+    ggplot(plot_data, aes(Answer, Count, fill=factor(`Segment Description`))) +
+      geom_col(position = "dodge") +
+      labs(title = "Number of Students' Shopping Habits Influenced by Social Media Platforms",
+           x = "Social Media Platform",
+           y = "Count",
+           fill = "University Name(s)") +
+      scale_fill_manual(values = c(input$color1, input$color2))
+  })
   ## QUESTION 3
   output$barplot <- renderPlot({
     if(input$gender == "Both"){
