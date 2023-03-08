@@ -161,7 +161,27 @@ ui <- fluidPage(
     ),
     
     ## CONCLUSION (TAB 5)
-    tabPanel("Conclusion"
+    tabPanel("Conclusion",
+             h3("Takeaways"),
+             p("One major takeaway from our project is the significant influence of social media on
+             people's habits and decision-making. Our analysis showed that social media is a key factor 
+             in shaping people's opinions and behaviors, and plays a critical role in shaping public discourse and debate."),
+             p("Another important takeaway from our project relates to the dataset itself. One notable pattern we discovered was that the
+             'segment description' category typically had only 5 responses, which meant that the entire population for that category was
+             represented by just those 5 people. For example, here are two variables pulled from the dataset that show all the reponses for it."),
+             tableOutput("table"),
+             tableOutput("table2"),
+             p("We can see that there are responses for only 5 female voters or 5 UW students."),
+             p("The broader implications of this insight are that researchers and analysts need to be mindful of the limitations
+               of the dataset and carefully consider the representativeness of the data when drawing conclusions. 
+               This also highlights the need for larger and more diverse datasets to ensure that our analyses accurately reflect 
+               the broader population."),
+             h3("Data Quality"),
+             p("The quality of the dataset was not as reasonable as desired, and the information was scattered and varied. 
+               As a result, it's unclear whether the dataset gives unbiased results or could potentially harm certain population groups."),
+             h3("Furthur Ideas"),
+             p("Future ideas that we have for advancing the project include looking into how answers vary region to region and seeing what trends 
+               there may be based on your location."),
       
     )
     
@@ -277,6 +297,15 @@ server <- function(input, output, session) {
   )
   
   ## CONCLUSION
+  female_voters <- subset(data, `Segment Description` == "Female voters")
+  output$table <- renderTable({
+    data.frame(female_voters)
+  })
+  
+  uw_students <- subset(data, `Segment Description` == "University of Washington")
+  output$table2 <- renderTable({
+    data.frame(uw_students)
+  })
 }
 
 
