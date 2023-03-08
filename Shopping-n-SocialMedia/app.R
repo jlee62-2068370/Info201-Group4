@@ -218,16 +218,23 @@ ui <- fluidPage(
       
              h3("Takeaway 2: Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations."),
              p("One other takeaway from our research is that social media apps 
-               owned by Meta Platforms (Instagram and Facebook) had the most 
+               owned by ", em("Meta Platforms Inc."), " (Instagram and Facebook) had the most 
                success in targeting ads to younger generations. 
                This finding goes against the perceived notion that Meta does not 
                effectively advertise to younger audiences, due to their predominantly 
-               older user base. For example, only 26.3% of their users are within the 
-               Gen-Z and Millennial age range (ages 13-24) on Facebook 
-               (a Meta-owned platform), whereas 48% of Snapchat’s user base is 
-               between the ages of 15-25. Despite these demographics, our data 
+               older user base. For example, ", 
+               tags$a(href="https://www.statista.com/statistics/376128/facebook-global-user-age-distribution/",
+                      "only 26.3% of their users"),
+               " are within the Gen-Z and Millennial age range (ages 13-24) on
+               Facebook (a Meta-owned platform), whereas ", 
+               tags$a(href="https://www.statista.com/statistics/933948/snapchat-global-user-age-distribution/",
+                      "60.1% of Snapchat’s user base"), " are 
+               between the ages of 13-24 worldwide. Despite these demographics, our data 
                shows that Meta’s advertising seems to effectively target younger 
-               audiences, especially through Instagram."
+               audiences, especially through Instagram. Instagram is the clear winner in effective
+               younger generation advertising in almost every demographic and has the most
+               responces claiming that pollers purchased a product after seeing an ad on
+               Instagram."
              ),
   
       ## Limitations
