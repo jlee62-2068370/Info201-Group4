@@ -67,7 +67,9 @@ ui <- fluidPage(
              These age groups also seem to be more relevant in terms of social media influence on shopping behavior due to their increased exposure to
              apps such as Instagram, Facebook, Twitter, and Snapchat. This may be valuable to them by creating more awareness on how these platforms affect the way they spend."),
              h3(strong("Data Set")),
-             p("WhatsGoodly"),
+             p("The dataset we’re working with is the “Social Influence on Shopping” dataset by Adam Halper on Kaggle. The dataset specifically surveyed both 
+               Millennials and Gen-Z and asked what social media app seemed to influence their shopping habits the most. The dataset also provides information 
+               on individual demographics, such as gender, educational status, university attending, etc., allowing us to look into the trends of different subgroups."),
              h3(strong("Questions")),
              p("Which social media platform has the most influence on shopping?"),
              p("Is there a particular demographic that values or uses certain types of social influence on their shopping habits more than others?"),
@@ -178,25 +180,48 @@ ui <- fluidPage(
     ),
     
     ## CONCLUSION (TAB 5)
-    tabPanel("Conclusion",
-             h3("Takeaways"),
-             p("One major takeaway from our project is the significant influence of social media on
-             people's habits and decision-making. Our analysis showed that social media is a key factor 
-             in shaping people's opinions and behaviors, and plays a critical role in shaping public discourse and debate."),
-             p("Another important takeaway from our project relates to the dataset itself. One notable pattern we discovered was that the
-             'segment description' category typically had only 5 responses, which meant that the entire population for that category was
-             represented by just those 5 people. For example, here are two variables pulled from the dataset that show all the reponses for it."),
-             tableOutput("table"),
-             tableOutput("table2"),
+    tabPanel(
+      "Conclusion",
+             ## Takeaways
+      wellPanel(
+        fluidRow(
+          column(12,
+                 h2("Takeaways")),
+          column(12,
+                 h3("Takeaway 1: Men and women both self-reported similar influences on purchases through social media advertisements.")),
+          
+        )
+      ),
+      column(12,
+             p("The gender gap between male and female respondents in our survey has made it challenging to identify trends in terms of the influence advertisements have. 
+               With 1562 male respondents and 1114 female respondents, it is hard to create a conclusion on the different genders' perspectives. It was interesting to see that a larger proportion 
+               of male respondents felt that no social media platform influenced their purchasing decisions compared to female respondents. On the other hand, both genders had similar 
+               averages in social media influence, with an average score of around 211 for females and 221 for males. However, there was a significant average difference between males and females
+               regarding their feelings about the impact of social media on their purchases. While 678 men reported feeling that social media did not influence their purchases, only 271 women 
+               reported the same feeling. These gender-specific differences in responses highlight the importance of obtaining more gender-balanced survey samples to achieve reliable and accurate results.")),
+      column(12,
+             h3("Takeaway 2: Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations.")),
+      column(12,
+             p("Another important takeaway in general was Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations.")),
+             ## Plot
+             plotOutput("average"),
              p("We can see that there are responses for only 5 female voters or 5 UW students."),
+             ## Limitations
+             h2("Limitations"),
+             p("One of the main drawbacks of our dataset was that even though it focused on Millenials and Gen-Z, we could not differentiate their responses.
+               The absence of this difference means that we were unable to determine the attitudes or opinions of either generation individually. Another significant factor
+               affecting the dataset's reliability was the unequal gender representation. The dataset had more male respondents than female, which could have biased our results.
+               And our final limitation was that the data was scattered in terms of categories such as race, sexual orientation, student status, and more. These variables were grouped 
+               under the same category,  making it challenging to identify specific groups of interest due to the unorganized structure of the dataset."),
              p("The broader implications of this insight are that researchers and analysts need to be mindful of the limitations
                of the dataset and carefully consider the representativeness of the data when drawing conclusions. 
-               This also highlights the need for larger and more diverse datasets to ensure that our analyses accurately reflect 
-               the broader population."),
-             h3("Data Quality"),
+               This also highlights the need for larger and more diverse datasets to ensure that our analyses accurately reflect the broader population."),
+             ## Data Quality
+             h2("Data Quality"),
              p("The quality of the dataset was not as reasonable as desired, and the information was scattered and varied. 
                As a result, it's unclear whether the dataset gives unbiased results or could potentially harm certain population groups."),
-             h3("Furthur Ideas"),
+             ## Future Ideas
+             h2("Future Ideas"),
              p("Future ideas that we have for advancing the project include looking into how answers vary region to region and seeing what trends 
                there may be based on your location."),
       
