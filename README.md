@@ -14,5 +14,4 @@ The fourth tab, _Gender and Social Media Shopping_, displays two plots. The top 
 
 Finally, our _Conclusion_ tab records two of our main takeaways from this data set, limitations found within our data, our anaysis on the quality of the data set as a whole, and future ideas worth exploring in a subsequent analysis.
 
-# **You can visit the app [here.](
-## TYPE HERE ##)**
+# **You can visit the app [here.](https://dlj949.shinyapps.io/INFO201_Final_Project/)**
