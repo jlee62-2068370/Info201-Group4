@@ -180,11 +180,11 @@ server <- function(input, output, session) {
                        choices = sort(unique(data$`Segment Description`)))
   })
   
-  # Find out what was selected on the "Select All" radio button
-  # CODE GOES HERE: DOESN'T WORK!!!!!
+  # Function that powers the "Select All" radio button
   observe({
     updateCheckboxGroupInput(
-      session, "uniqueDemographics", choices = sort(unique(data$`Segment Description`)),
+      session, "specification", "Select demographics",
+      choices = sort(unique(data$`Segment Description`)),
       selected = if(input$All == "On") sort(unique(data$`Segment Description`))
     )
   })
