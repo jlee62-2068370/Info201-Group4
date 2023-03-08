@@ -204,7 +204,7 @@ ui <- fluidPage(
     ## CONCLUSION (TAB 5)
     tabPanel(
       "Conclusion",
-             ## Takeaways
+      ## Takeaways
                  h2("Takeaways"),
                  h3("Takeaway 1: Men and women both self-reported similar influences on purchases through social media advertisements."),
              p("The gender gap between male and female respondents in our survey has made it challenging to identify trends in terms of the influence advertisements have. 
@@ -213,14 +213,27 @@ ui <- fluidPage(
                averages in social media influence, with an average score of around 211 for females and 221 for males. However, there was a significant average difference between males and females
                regarding their feelings about the impact of social media on their purchases. While 678 men reported feeling that social media did not influence their purchases, only 271 women 
                reported the same feeling. These gender-specific differences in responses highlight the importance of obtaining more gender-balanced survey samples to achieve reliable and accurate results."),
-             h3("Takeaway 2: Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations."),
-             p("Another important takeaway in general was Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations."),
-             ## Plot
+             
+      ## Plot
       wellPanel(
         plotOutput("average2")
       ),
-             p("We can see that there are responses for only 5 female voters or 5 UW students."),
-             ## Limitations
+      
+             h3("Takeaway 2: Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations."),
+             p("One other takeaway from our research is that social media apps 
+               owned by Meta Platforms (Instagram and Facebook) had the most 
+               success in targeting ads to younger generations. 
+               This finding goes against the perceived notion that Meta does not 
+               effectively advertise to younger audiences, due to their predominantly 
+               older user base. For example, only 26.3% of their users are within the 
+               Gen-Z and Millennial age range (ages 13-24) on Facebook 
+               (a Meta-owned platform), whereas 48% of Snapchat’s user base is 
+               between the ages of 15-25. Despite these demographics, our data 
+               shows that Meta’s advertising seems to effectively target younger 
+               audiences, especially through Instagram."
+             ),
+  
+      ## Limitations
              h2("Limitations"),
              p("One of the main drawbacks of our dataset was that even though it focused on Millenials and Gen-Z, we could not differentiate their responses.
                The absence of this difference means that we were unable to determine the attitudes or opinions of either generation individually. Another significant factor
