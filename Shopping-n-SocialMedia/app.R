@@ -50,6 +50,15 @@ none <- cbind(none, status = c("none", "none"))
 new_gender <- rbind(social, none)
   
 
+# Create options for race inputs
+race_selection <- data %>%
+  select(`Segment Description`) %>%
+  filter(`Segment Description` %in% c("closely identify as? Asian", "closely identify as? Black",
+      "closely identify as? White","closely identify as? Native American","closely identify as? Other",
+      "closely identify as? Hispanic")) %>%
+  unique() %>%
+  reframe(race = `Segment Description`)
+
 ## SHINY APP
 
 ui <- fluidPage(
@@ -129,24 +138,12 @@ ui <- fluidPage(
     tabPanel("General Trends",
        sidebarLayout(
          mainPanel(
-           plotOutput("compare")
+           plotOutput("plot")
          ),
          sidebarPanel(
            fluidRow(
-             selectInput("Race1", "Race Choice 1", 
-                         c("closely identify as? Asian",
-                           "closely identify as? Black",
-                           "closely identify as? White",
-                           "closely identify as? Native American",
-                           "closely identify as? Other",
-                           "closely identify as? Hispanic")),
-             selectInput("Race2", "Race Choice 2", 
-                         c("None", "closely identify as? Asian",
-                           "closely identify as? Black",
-                           "closely identify as? White",
-                           "closely identify as? Native American",
-                           "closely identify as? Other",
-                           "closely identify as? Hispanic"))
+             selectInput("Race1", "Race Choice 1", str_sub(race_selection$race, 22)),
+             selectInput("Race2", "Race Choice 2", c("None", str_sub(race_selection$race, 22)))
            ),
            fluidRow(
              colourInput("color1", "Color of Race Choice 1", 
@@ -321,21 +318,23 @@ server <- function(input, output, session) {
             type = "bar")
   })
   ## QUESTION 2
-  output$compare <- renderPlot({
+  output$plot <- renderPlot({
+    input1 <- paste("closely identify as?", input$Race1, sep = " ")
+    input2 <- paste("closely identify as?", input$Race2, sep = " ")
     plot_data <- data %>%
       select(`Segment Description`, Answer, Count ) %>%
-      filter(`Segment Description` %in% c(input$Race1, 
-                                          input$Race2)) %>%
+      filter(`Segment Description` %in% c(input1, input2)) %>%
       group_by(`Segment Description`)
     
-    ggplot(plot_data, aes(Answer, Count, fill=factor(`Segment Description`))) +
+    ggplot(plot_data, aes(Answer, Count, fill = factor(str_sub(`Segment Description`, 22)))) +
       geom_col(position = "dodge") +
-      labs(title = "Number of Students' Shopping Habits Influenced by Social Media Platforms",
+      labs(title = "Number of People's Shopping Habits Influenced by Social Media Platforms",
            x = "Social Media Platform",
            y = "Count",
-           fill = "University Name(s)") +
+           fill = "Race(s)") +
       scale_fill_manual(values = c(input$color1, input$color2))
   })
+  
   ## QUESTION 3
   output$barplot <- renderPlot({
     if(input$gender == "Both"){
