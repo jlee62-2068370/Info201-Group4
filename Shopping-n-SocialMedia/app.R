@@ -17,9 +17,7 @@ data <- read_delim("WhatsgoodlyData-6.csv")
 
 ## DATA CLEANING
 
-# 1. Check to see if there are NA's in the data and exclude those.
-
-# 2. Created a new column that displays the size of the demographics.
+# 1. Created a new column that displays the size of the demographics.
 data$`Number of Voters` <- floor(data$Count/data$Percentage)
 data$`Number of Voters` <- data$`Number of Voters` %>% 
   replace(is.na(.), 0)
@@ -100,7 +98,26 @@ ui <- fluidPage(
         mainPanel(
           wellPanel(
             plotlyOutput("barPlot")
-          )
+          ),
+          wellPanel(
+            p("Common trends can be noticed across many demographics is that
+              many Millennial and Generation Z members feel that either
+              social media does not have any impact on their purchases or
+              Instagram has the largest impact of all the platforms, with very
+              few consistently selecting Snapchat as a source of advertisments
+              working. ", em("Meta Platforms Inc."), " has done the best job of
+              any major tech company in getting young users to purchase
+              advertisments through both of their major social media platforms,",
+              strong("Facebook"), " and ", strong("Instagram."))
+          ),
+          p("These numbers were calculated through separating every calculated
+            vote by a specified demographic question. Although not specified
+            within the dataset itself, we can safely assume that overlap does
+            exist for many demographics and that one voter may have replied to
+            multiple demographic questions. Strangely, however, it can be 
+            observed that certain categories such as your perceived race had
+            many more responses than relationship status, both fields that 
+            should theoretically cover all of the participants.")
         )
       )
     ),
