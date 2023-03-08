@@ -60,6 +60,7 @@ ui <- fluidPage(
     tabPanel("Introduction",
              h3(strong("Creators:"),"Jordan Lee, Kyra Gaile Diaz, Zareen Tasnim, Dylan Johnson"),
              h3(strong("Project Overview")),
+             imageOutput("renderedImage"),
              p("This report provides a broad overview of how online advertising on social media affects consumers of varying gender, age, status, and more."),
              h3(strong("Audience")),
              p("Our target audience are mainly young people (particularly from Gen-Z and Millennial generations) who use social media platforms daily. 
@@ -208,6 +209,12 @@ ui <- fluidPage(
 
 
 server <- function(input, output, session) {
+  
+  # Rendering the Intro image
+  output$renderedImage <- renderImage({
+    list(src = "shopping-2.png",
+         width = "50%", height = "100%")
+  }, deleteFile = FALSE)
   
   ## INTRODUCTION
   
