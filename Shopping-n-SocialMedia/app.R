@@ -246,11 +246,13 @@ ui <- fluidPage(
              ## Data Quality
              h2("Data Quality"),
              p("The quality of the dataset was not as reasonable as desired, and the information was scattered and varied. 
-               As a result, it's unclear whether the dataset gives unbiased results or could potentially harm certain population groups."),
+               As a result, it's unclear whether the dataset gives unbiased results or could potentially harm certain population groups. For example,
+               categories such as racial identity, sexual orientation, student status (undergraduate/graduate), and more fell under the same Segment 
+               Type of 'Custom'. This made it difficult to parse out specific groups of interests due to the unorganized structure of the dataset."),
              ## Future Ideas
              h2("Future Ideas"),
-             p("Future ideas that we have for advancing the project include looking into how answers vary region to region and seeing what trends 
-               there may be based on your location."),
+             p("Future ideas that we have for advancing the project include looking into how answers may vary region to region. This can reveal other
+             patterns that we may have not seen previously. Organizing the trends by location can show new patterns."),
       
     )
   ) # end of tabsetPanel section
