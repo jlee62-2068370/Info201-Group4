@@ -1,18 +1,18 @@
-# INFO201: Group 4 ReadMe
+# INFO201: Group 4 Final Project
 
-## Instructions (from Canvas Assignment Page):
-**What exactly you build is up to your group, but it must meet the following requirements:** 
-- Create an interactive visualization platform using R, compiled into a webpage for enhanced accessibility
-- Choose a dataset of sufficient complexity to explore. This doesn't mean it has to be Big Data, but it should either be of notable size (more than a few hundred observations), or complexity (more than ~5 features of each observation) 
-- Demonstrate a nuanced understanding of the important features of the dataset. High-level insights (important descriptive information, major trends, notable outliers, etc.) should be prominent in your resource. Statistical analyses may be included if appropriate. 
-- Devise a visual representation of your data (i.e., chart, map, etc.). Ideally, this should be an interactive visualization with ability to interact with the interface (hover, click, drag, etc.), or change the data being displayed (i.e., the chart responds to a set of controls, such as which data is being displayed) 
-- Tailor your resource to a specific target audience. The way you frame your solution for a scientific versus general audience is quite different.
+This problem set uses the Social Media advertiser data gathered by Adam Halper from Whatsgoodly, a social polling company. You can download the data for yourself [here.](https://www.kaggle.com/datasets/thedevastator/uncovering-millennials-shopping-habits-and-socia) This data is centered around Millennial and Generation Z users of social media and how advertisements influence their purchases. Using 50,770 self-reported responses from users of Whatsgoodly, this app hopes to find trends between which social media platforms more effectively advertise to younger generations and which ones fail to effectively entice their users.
 
+# The App
 
-## Submission
-As submission, please submit your github URL in the same way as for ordinary problem sets. However, this time also add link to your shiny app url in the readme file!
+There are five tabs in this Problem Set. The first tab, _Introduction_, gives information into our dataset, our target audience, and the three main questions that we hope to answer through this dataset and application.
 
-## Some Examples (from Canvas page)
-- [Anxiety and Depression during COVID-19](https://ilee17.shinyapps.io/BG-3-Final-Project/) 
-- [Happiness Report](https://ckuo2001.shinyapps.io/Happiness_Report/)
-- [Rent and Poverty Report](https://bobcheese21.shinyapps.io/BE_BOUNDLESS_FINAL_PROJ/)
+The second tab, _Most Influential Social Media Platform_, is an interactive plot where the user can manipulate the 258 recorded demographics in the data and have specific demographics displayed in a bar plot. Responses only covered 5 possible answers: **Facebook, Twitter, Snapchat, Instagram, and None**. They may also wish to display the graph for all counted responses through the 'Select All' button to the left.
+
+The third tab, _General Trends_, gives an interactive plot where the user can view responses categorized by race and compare them through a dual bar plot. The user can change the color and races displayed through drop-down windows on the right of the plot. Finally, below the plot contains information on discovered racial trends.
+
+The fourth tab, _Gender and Social Media Shopping_, displays two plots. The top plot, _"Individual Trends of Gender and Social Media Shopping"_, is an interactive plot where the user may cycle through data categorized by gender or compare them side-by-side. The bottom plot, _"Who's More Susceptible?"_, displays the average number of users by gender who purchase any product from any social media ad versus none at all.
+
+Finally, our _Conclusion_ tab records two of our main takeaways from this data set, limitations found within our data, our anaysis on the quality of the data set as a whole, and future ideas worth exploring in a subsequent analysis.
+
+# **You can visit the app [here.](
+## TYPE HERE ##)**
