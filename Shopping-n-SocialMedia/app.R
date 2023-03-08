@@ -138,7 +138,59 @@ ui <- fluidPage(
     tabPanel("General Trends",
        sidebarLayout(
          mainPanel(
-           plotOutput("plot")
+           plotOutput("plot"),
+           h1("Observations"),
+           p("When looking at the data for social media influence in race demographics,
+        White people have far more recorded data compared to the rest of the other
+        races oberserved. Additionally, the counts for each social media, 
+        including none, White also lead in the respective oberservations."),
+           p("Another general trend depicted from the plot, is that the Native American
+        race has not only the least recorded data in general, but the lowest count
+        for each of the social media influences"),
+           h2("General Trends Across Each Race:"),
+           tags$ul(
+             tags$li(strong("Asian: "), "the data recorded for Asian people show the highest
+           count for social media, actually being none. However, if we do not 
+           consider the 'none' option, Instagram comes in first for the highest count,
+           Facebook as second, and lastly Snapchat/Twitter in third and fourth respectively"),
+             tags$li(strong("Other: "), "the data recorded for Other people show a tie between
+           Instagram and 'none' for the highest count. Facebook follows for second, then afterwards
+           Snapchat and Twitter come third and fourth respectively."),
+             tags$li(strong("Native American: "), "the data recorded for Native American people
+           illustrate the highest count for social media influence in Instagram. 
+           'None' follows this data as the second highest, with Twitter and Facebook
+           tied for the third highest. Surprisingly, there is no count for Snapchat
+           when considering the data for Native American people."),
+             tags$li(strong("Black: "), "the data recorded for Black people observe that Instagram
+           have the highest influence on the Black community's shopping habits. The
+           next heights is 'none', with Facebook falling in third, Twitter in fourth, 
+           and Snapchat coming in last."),
+             tags$li(strong("Hispanic: "), "the data trends from observing Hispanic people
+                show the heighest social media influence on shopping habit as 'none'. 
+                However, if we look at this data and do not consider the 'none' section,
+                Instagram comes in first highest across the social media platforms, Facebook
+                in second, Twitter in third, and Snapchat as the last."),
+             tags$li(strong("White: "), "the data trends from observing white people
+                show the heighest social media influence on shopping habit as 'none'. 
+                However, if we look at this data and do not consider the 'none' section,
+                Instagram comes in first highest across the social media platforms, Facebook
+                in second, Twitter in third, and Snapchat as the last.")
+           ),
+           h2("Overall Trends:"),
+           tags$blockquote("\"Is there a particular race demographic that values or uses certain types of social
+         influence on their shopping habits more than others?\""),
+           p("After considering the data from each subset of races there are some clear
+        indications for trends:"),
+           tags$ul(
+             tags$li("Across each race, the highest social media influence on shopping
+                habits was either 'none' or Instagram. From this oberservation alone it 
+                can be correct to assume that Instagram or using no social media 
+                influences shopping habits the most in each race demographic"),
+             tags$li("Snapchat has overall the least influence on shopping habits as it came in
+                the lowest for each race demographic"),
+             tags$li("Facebook consistently came in as the third result for social media
+                influence on shopping habits")
+           )
          ),
          sidebarPanel(
            fluidRow(
