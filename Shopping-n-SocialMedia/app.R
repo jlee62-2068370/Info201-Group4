@@ -72,9 +72,9 @@ ui <- fluidPage(
                Millennials and Gen-Z and asked what social media app seemed to influence their shopping habits the most. The dataset also provides information 
                on individual demographics, such as gender, educational status, university attending, etc., allowing us to look into the trends of different subgroups."),
              h3(strong("Questions")),
-             p("Which social media platform has the most influence on shopping?"),
-             p("Is there a particular demographic that values or uses certain types of social influence on their shopping habits more than others?"),
-             p("Which gender is more susceptible to social media influencing?")
+             h5("Which social media platform has the most influence on shopping?"),
+             h5("Is there a particular demographic that values or uses certain types of social influence on their shopping habits more than others?"),
+             h5("Which gender is more susceptible to social media influencing?")
     ),
     
     ## QUESTION 1 (TAB 2)
@@ -184,28 +184,20 @@ ui <- fluidPage(
     tabPanel(
       "Conclusion",
              ## Takeaways
-      wellPanel(
-        fluidRow(
-          column(12,
-                 h2("Takeaways")),
-          column(12,
-                 h3("Takeaway 1: Men and women both self-reported similar influences on purchases through social media advertisements.")),
-          
-        )
-      ),
-      column(12,
+                 h2("Takeaways"),
+                 h3("Takeaway 1: Men and women both self-reported similar influences on purchases through social media advertisements."),
              p("The gender gap between male and female respondents in our survey has made it challenging to identify trends in terms of the influence advertisements have. 
                With 1562 male respondents and 1114 female respondents, it is hard to create a conclusion on the different genders' perspectives. It was interesting to see that a larger proportion 
                of male respondents felt that no social media platform influenced their purchasing decisions compared to female respondents. On the other hand, both genders had similar 
                averages in social media influence, with an average score of around 211 for females and 221 for males. However, there was a significant average difference between males and females
                regarding their feelings about the impact of social media on their purchases. While 678 men reported feeling that social media did not influence their purchases, only 271 women 
-               reported the same feeling. These gender-specific differences in responses highlight the importance of obtaining more gender-balanced survey samples to achieve reliable and accurate results.")),
-      column(12,
-             h3("Takeaway 2: Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations.")),
-      column(12,
-             p("Another important takeaway in general was Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations.")),
+               reported the same feeling. These gender-specific differences in responses highlight the importance of obtaining more gender-balanced survey samples to achieve reliable and accurate results."),
+             h3("Takeaway 2: Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations."),
+             p("Another important takeaway in general was Meta Platforms Inc. is the most successful major tech company in successfully targeting ads to younger generations."),
              ## Plot
-             plotOutput("average"),
+      wellPanel(
+        plotOutput("average2")
+      ),
              p("We can see that there are responses for only 5 female voters or 5 UW students."),
              ## Limitations
              h2("Limitations"),
@@ -227,10 +219,9 @@ ui <- fluidPage(
                there may be based on your location."),
       
     )
-    
   ) # end of tabsetPanel section
 
-)# end of fluidPage section
+) # end of fluidPage section
 
 
 server <- function(input, output, session) {
@@ -345,12 +336,20 @@ server <- function(input, output, session) {
       labs(x = "Gender", y = "Average Influence", fill = "Social Media vs None")
   )
   
+  # Second plot to allow for the Conclusion plot render
+  output$average2 <- renderPlot(
+    ggplot(new_gender, mapping = aes(x = `Segment Description`, y = avg, 
+                                     fill = factor(status))) +
+      geom_bar(stat = 'identity', position = "dodge2") +
+      labs(x = "Gender", y = "Average Influence", fill = "Social Media vs None")
+  )
+  
   ## CONCLUSION
   female_voters <- subset(data, `Segment Description` == "Female voters")
   output$table <- renderTable({
     data.frame(female_voters)
   })
-  
+
   uw_students <- subset(data, `Segment Description` == "University of Washington")
   output$table2 <- renderTable({
     data.frame(uw_students)
