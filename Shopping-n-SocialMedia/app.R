@@ -16,13 +16,13 @@ data <- read_delim("WhatsgoodlyData-6.csv")
 
 
 ## DATA CLEANING
-3
-# 1. Created a new column that displays the size of the demographics.
+
+# Created a new column that displays the size of the demographics.
 data$`Number of Voters` <- floor(data$Count/data$Percentage)
 data$`Number of Voters` <- data$`Number of Voters` %>% 
   replace(is.na(.), 0)
 
-## QUESTION 2 - AVERAGE GENDER DATA CLEANING 
+## QUESTION 3 - AVERAGE GENDER DATA CLEANING 
 
 # Gender Subset
 shopping_gender <- data %>% 
@@ -48,7 +48,9 @@ none <- cbind(none, status = c("none", "none"))
 
 # Create new dataframe that shows averages
 new_gender <- rbind(social, none)
-  
+ 
+ 
+## QUESTION 2 - RACE AND SOCIAL MEDIA DATA CLEANING
 
 # Create options for race inputs
 race_selection <- data %>%
