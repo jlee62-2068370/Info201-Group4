@@ -57,7 +57,7 @@ race_selection <- data %>%
       "closely identify as? White","closely identify as? Native American","closely identify as? Other",
       "closely identify as? Hispanic")) %>%
   unique() %>%
-  reframe(race = `Segment Description`)
+  summarize(race = `Segment Description`)
 
 ## SHINY APP
 
@@ -87,7 +87,7 @@ ui <- fluidPage(
                advertise to younger generations and which ones fail to effectively entice their users."),
              h3(strong("Questions")),
              h5("Which social media platform has the most influence on shopping?"),
-             h5("Is there a particular demographic that values or uses certain types of social influence on their shopping habits more than others?"),
+             h5("How does social media influence differ across varying racial demographics?"),
              h5("Which gender is more susceptible to social media influencing?")
     ),
     
@@ -140,7 +140,7 @@ ui <- fluidPage(
     ),
     
     ## QUESTION 2 (TAB 3)
-    tabPanel("General Trends",
+    tabPanel("Race and Social Media",
        sidebarLayout(
          mainPanel(
            plotOutput("plot"),
@@ -228,7 +228,7 @@ ui <- fluidPage(
                plotOutput("barplot"), # interactive plot to see general trends
                textOutput("sentence1"), # short summary statements of key features
                
-               h3("Who's More Suseceptible?"),
+               h3("Who's More Susceptible?"),
                plotOutput("average"), # summary plot that answers research question
                p("On average, both genders seem to be equally influenced
                       by social media apps--specifically Instagram across both
@@ -304,16 +304,18 @@ ui <- fluidPage(
              p("The broader implications of this insight are that researchers and analysts need to be mindful of the limitations
                of the dataset and carefully consider the representativeness of the data when drawing conclusions. 
                This also highlights the need for larger and more diverse datasets to ensure that our analyses accurately reflect the broader population."),
-             ## Data Quality
+      ## Data Quality
              h2("Data Quality"),
-             p("The quality of the dataset was not as reasonable as desired, and the information was scattered and varied. 
-               As a result, it's unclear whether the dataset gives unbiased results or could potentially harm certain population groups. For example,
-               categories such as racial identity, sexual orientation, student status (undergraduate/graduate), and more fell under the same Segment 
-               Type of 'Custom'. This made it difficult to parse out specific groups of interests due to the unorganized structure of the dataset."),
-             ## Future Ideas
+             p("The quality of the dataset was not as reasonable as desired, and the information was very scattered. 
+               As a result, it is unclear whether the dataset gives unbiased results or could potentially harm certain population groups. For example,
+               categories such as racial identity, sexual orientation, student status (undergraduate/graduate), and more fell under the same column.
+               This made it difficult to parse out specific groups of interests due to the unorganized structure of the dataset. The data
+               organization was all over the place and inconvenient to work with."),
+      ## Future Ideas
              h2("Future Ideas"),
-             p("Future ideas that we have for advancing the project include looking into how answers may vary region to region. This can reveal other
-             patterns that we may have not seen previously. Organizing the trends by location can show new patterns."),
+             p("Future ideas that we have for advancing the project include looking into how answers may vary region to region. This can reveal new
+             patterns that we may have not seen previously. Organizing the trends by location can allow us to compare the impact of different apps in different
+             regions."),
       
     )
   ) # end of tabsetPanel section
